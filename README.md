@@ -12,6 +12,7 @@ Plain static HTML/CSS/JS: no framework, no build step, nothing to install.
 | `aftercare.html` | The healing ritual (her aftercare guide) |
 | `policies.html` | Studio policies |
 | `404.html` | "Lost, adventurer?" page for broken links |
+| `he/…` | Hebrew version of the four main pages (right-to-left), at ladyjanetattoo.com/he/ |
 
 ## Run it locally
 
@@ -46,6 +47,16 @@ Namecheap → Advanced DNS records:
 - **Send via WhatsApp** opens WhatsApp (`wa.me/972515002650`) with the visitor's details pre-written.
 - A hidden `botcheck` field catches simple spam bots. If sending fails, the visitor is shown the WhatsApp link and email address instead.
 
+## Hebrew version
+
+- Lives in `/he/` and reuses the same `assets/` (the pages point one folder up with `../assets/`).
+- `<html lang="he" dir="rtl">` flips the layout. Direction-sensitive bits (arrows, carousel, lightbox, marquee) have `[dir="rtl"]` rules in `style.css`.
+- Hebrew type: **Frank Ruhl Libre** (headings) and **Heebo** (text). Hebrew has no italics, so emphasis uses the bone colour instead.
+- Visitors talk in plural/neutral Hebrew (אתם / שלכם); Anneline speaks in the first-person feminine.
+- Interface text used by the JavaScript (gallery viewer, archive filters, form messages, WhatsApp text, email field names) is in the `STRINGS` table at the top of `assets/js/main.js`.
+- Each page links to its other-language twin (header and footer), and declares it with `hreflang` tags so Google shows the right language to the right people. `sitemap.xml` lists both.
+- **When you change content, update both languages.** Form requests from the Hebrew site arrive with the subject "בקשה חדשה מהאתר בעברית".
+
 ## SEO
 
 - Every page has a unique title and description led by what people actually search for ("tattoo artist in Tel Aviv", "fine line", "tattoo portfolio", "tattoo aftercare"). Each H1 opens with a small keyword line above the poetic headline.
@@ -62,7 +73,7 @@ Namecheap → Advanced DNS records:
 
 ## Editing shared parts
 
-The header, mobile menu, footer and SVG icon sprite are repeated in every HTML file (including `404.html`). Change them all when you edit them.
+The header, mobile menu, footer and SVG icon sprite are repeated in every HTML file (including `404.html` and the `he/` pages). Change them all when you edit them.
 CSS and JS links carry a `?v=` hash so returning visitors get fresh files. Bump it (any new value) after changing `style.css` or `main.js`.
 
 ## Design notes
@@ -81,3 +92,5 @@ CSS and JS links carry a `?v=` hash so returning visitors get fresh files. Bump 
 - [ ] Deposit amount and price guidance, if she wants any on the site
 - [ ] Studio name and exact address, opening days, languages (Hebrew version?)
 - [ ] Whether to keep the apprenticeship / cartoon pieces (cartoon pieces were left out on purpose)
+- [ ] Read through the Hebrew site and adjust the wording to her voice
+- [ ] Hebrew spelling of her name (the Hebrew pages show "Anneline Yaish" in Latin letters for now)

@@ -7,11 +7,59 @@
   // Web3Forms delivers form submissions by email. The access key is meant to be public.
   var FORM_ENDPOINT = 'https://api.web3forms.com/submit';
   var FORM_KEY = '726bf025-e5fc-45e9-9e9f-ac95c7bcbcac';
-  var IMG = 'assets/img/work/';
+  var ROOT = document.documentElement;
+  var RTL = ROOT.dir === 'rtl';
+  // Pages in a sub-folder (the Hebrew site in /he/) point back up to the shared assets
+  var IMG = (ROOT.getAttribute('data-base') || '') + 'assets/img/work/';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
-  var ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+
+  /* ---------- Strings (English / Hebrew) ---------- */
+  var STRINGS = {
+    en: {
+      numerals: ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'],
+      menu: 'Menu', close: 'Close', viewer: 'Artwork viewer', prev: 'Previous', next: 'Next',
+      begin: 'Begin your journey', artwork: 'Artwork by Lady Jane',
+      allWorks: 'All works', relic: ' relic', relics: ' relics',
+      styles: { engraving: 'Engraving & Sketch', symbolic: 'Symbolic & Mythology', realism: 'Blackwork Realism', handpoke: 'Hand-poke', illustration: 'Illustration & Design', paintings: 'Paintings' },
+      alt: { engraving: 'Engraving and sketch style tattoo', symbolic: 'Symbolic fine line tattoo', realism: 'Blackwork realism tattoo', handpoke: 'Hand-poke tattoo', illustration: 'Tattoo design illustration', paintings: 'Symbolic painting' },
+      altSuffix: ' by Lady Jane, tattoo artist in Tel Aviv',
+      need: { name: 'your name', email: 'your email', story: 'a few words about your idea' },
+      pleaseAdd: function (items) { var last = items.pop(); return 'Please add ' + (items.length ? items.join(', ') + ' and ' : '') + last + '.'; },
+      badEmail: 'Please check your email address.',
+      adult: 'Please confirm you’re 18 or older.',
+      sending: 'Sending…', send: 'Send your request',
+      failed: function (wa, mail) { return 'Your request couldn’t be sent just now. Please try again, or reach me on ' + wa + ' or at ' + mail + '.'; },
+      waWord: 'WhatsApp',
+      successName: function (first) { return ', ' + first; },
+      wa: { hello: 'Hi Lady Jane, I’d like to begin a design journey.', name: 'Name: ', email: 'Email: ', seek: 'Seeking: ', story: 'My story / idea:', place: 'Placement & size: ', dates: 'Preferred dates: ', adult: '(I confirm I’m 18+ and have read the studio policies.)' },
+      mail: { subject: 'Ink Journey Request — ', from: 'Lady Jane website', phone: 'WhatsApp / phone', seek: 'Seeking', story: 'Story / idea', place: 'Placement & size', dates: 'Preferred dates', adult: '18+ & read policies', yes: 'Yes' }
+    },
+    he: {
+      numerals: ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ז׳', 'ח׳', 'ט׳', 'י׳', 'י״א', 'י״ב'],
+      menu: 'תפריט', close: 'סגירה', viewer: 'הצגת יצירות', prev: 'הקודם', next: 'הבא',
+      begin: 'התחילו את המסע', artwork: 'יצירה של ליידי ג׳יין',
+      allWorks: 'כל העבודות', relic: ' קמע', relics: ' קמעות',
+      styles: { engraving: 'תחריט וסקיצה', symbolic: 'סמלים ומיתולוגיה', realism: 'ריאליזם שחור', handpoke: 'הנד-פוק', illustration: 'איור ועיצוב', paintings: 'ציורים' },
+      alt: { engraving: 'קעקוע בסגנון תחריט וסקיצה', symbolic: 'קעקוע סמלי בפיין ליין', realism: 'קעקוע ריאליזם שחור', handpoke: 'קעקוע הנד-פוק', illustration: 'איור עיצוב לקעקוע', paintings: 'ציור סמלי' },
+      altSuffix: ' מאת ליידי ג׳יין, מקעקעת בתל אביב',
+      need: { name: 'שם', email: 'אימייל', story: 'כמה מילים על הרעיון' },
+      pleaseAdd: function (items) { var last = items.pop(); return 'נא להוסיף ' + (items.length ? items.join(', ') + ' ו' : '') + last + '.'; },
+      badEmail: 'נא לבדוק את כתובת האימייל.',
+      adult: 'נא לאשר שאתם מעל גיל 18.',
+      sending: 'בשליחה…', send: 'שליחת הבקשה',
+      failed: function (wa, mail) { return 'לא הצלחנו לשלוח את הבקשה כרגע. נסו שוב, או פנו אליי ב' + wa + ' או במייל ' + mail + '.'; },
+      waWord: 'וואטסאפ',
+      successName: function (first) { return ', ' + first; },
+      wa: { hello: 'היי ליידי ג׳יין, אשמח להתחיל מסע עיצוב.', name: 'שם: ', email: 'אימייל: ', seek: 'מבוקש: ', story: 'הסיפור / הרעיון שלי:', place: 'מיקום וגודל: ', dates: 'תאריכים מועדפים: ', adult: '(אני מאשר/ת שאני מעל גיל 18 וקראתי את מדיניות הסטודיו.)' },
+      mail: { subject: 'בקשה חדשה מהאתר בעברית — ', from: 'Lady Jane website (HE)', phone: 'וואטסאפ / טלפון', seek: 'מבוקש', story: 'הסיפור / הרעיון', place: 'מיקום וגודל', dates: 'תאריכים מועדפים', adult: 'מעל 18 וקרא/ה את המדיניות', yes: 'כן' }
+    }
+  };
+  var T = STRINGS[ROOT.lang === 'he' ? 'he' : 'en'];
+  var ROMAN = T.numerals;
+  // In right-to-left pages "next" lies to the left, so arrow keys and swipes flip
+  var FWD = RTL ? -1 : 1;
 
   /* ---------- Header: solid after scrolling ---------- */
   var header = $('.site-header');
@@ -32,7 +80,7 @@
     document.body.classList.toggle('menu-open', open);
     if (toggle) {
       toggle.setAttribute('aria-expanded', String(open));
-      $('.label', toggle).textContent = open ? 'Close' : 'Menu';
+      $('.label', toggle).textContent = open ? T.close : T.menu;
     }
     if (header && !alwaysSolid && open) header.classList.add('is-solid');
     if (!open) onScroll();
@@ -87,13 +135,13 @@
   function buildLightbox() {
     lb = document.createElement('dialog');
     lb.className = 'lightbox';
-    lb.setAttribute('aria-label', 'Artwork viewer');
+    lb.setAttribute('aria-label', T.viewer);
     lb.innerHTML =
       '<div class="lb-top"><span class="lb-counter" aria-live="polite"></span>' +
-      '<button class="lb-close" type="button">Close <span aria-hidden="true" style="font-size:22px;line-height:1">×</span></button></div>' +
-      '<div class="lb-stage"><img alt=""><button class="round-btn lb-nav lb-prev" type="button" aria-label="Previous">←</button>' +
-      '<button class="round-btn lb-nav lb-next" type="button" aria-label="Next">→</button></div>' +
-      '<div class="lb-bottom"><span class="lb-cap"></span><a class="link-arrow" href="index.html#begin">Begin your journey</a></div>';
+      '<button class="lb-close" type="button">' + T.close + ' <span aria-hidden="true" style="font-size:22px;line-height:1">×</span></button></div>' +
+      '<div class="lb-stage"><img alt=""><button class="round-btn lb-nav lb-prev" type="button" aria-label="' + T.prev + '">' + (RTL ? '→' : '←') + '</button>' +
+      '<button class="round-btn lb-nav lb-next" type="button" aria-label="' + T.next + '">' + (RTL ? '←' : '→') + '</button></div>' +
+      '<div class="lb-bottom"><span class="lb-cap"></span><a class="link-arrow" href="index.html#begin">' + T.begin + '</a></div>';
     document.body.appendChild(lb);
     lbImg = $('img', lb); lbCap = $('.lb-cap', lb); lbCount = $('.lb-counter', lb);
     $('.lb-close', lb).addEventListener('click', closeLb);
@@ -103,22 +151,22 @@
     lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('lb-stage')) closeLb(); });
     lb.addEventListener('close', function () { document.documentElement.style.overflow = ''; });
     lb.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowLeft') stepLb(-1);
-      if (e.key === 'ArrowRight') stepLb(1);
+      if (e.key === 'ArrowLeft') stepLb(-FWD);
+      if (e.key === 'ArrowRight') stepLb(FWD);
     });
     var x0 = null;
     lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
     lb.addEventListener('touchend', function (e) {
       if (x0 === null) return;
       var dx = e.changedTouches[0].clientX - x0;
-      if (Math.abs(dx) > 50) stepLb(dx < 0 ? 1 : -1);
+      if (Math.abs(dx) > 50) stepLb(dx < 0 ? FWD : -FWD);
       x0 = null;
     });
   }
   function renderLb() {
     var item = lbList[lbIndex];
     lbImg.src = IMG + item.src + '.webp';
-    lbImg.alt = item.alt || item.cap || 'Artwork by Lady Jane';
+    lbImg.alt = item.alt || item.cap || T.artwork;
     lbCap.textContent = item.cap || '';
     lbCount.textContent = (lbIndex + 1) + ' / ' + lbList.length;
     // warm the neighbours
@@ -188,7 +236,7 @@
     orbit.addEventListener('touchend', function (e) {
       if (ox === null) return;
       var dx = e.changedTouches[0].clientX - ox;
-      if (Math.abs(dx) > 40) go(oi + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 40) go(oi + (dx < 0 ? FWD : -FWD));
       ox = null;
     });
     placeOrbs();
@@ -216,7 +264,7 @@
     var showSuccess = function (name) {
       $('.form-body', form).hidden = true;
       var ok = $('[data-form-success]', form);
-      $('[data-success-name]', ok).textContent = name ? ', ' + name.split(' ')[0] : '';
+      $('[data-success-name]', ok).textContent = name ? T.successName(name.split(' ')[0]) : '';
       ok.hidden = false;
       ok.focus({ preventScroll: true });
       form.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
@@ -237,24 +285,21 @@
       };
 
       var missing = [];
-      if (!v.name) missing.push('your name');
-      if (via === 'form' && !v.email) missing.push('your email');
-      if (!v.story) missing.push('a few words about your idea');
-      if (missing.length) {
-        var last = missing.pop();
-        return fail('Please add ' + (missing.length ? missing.join(', ') + ' and ' : '') + last + '.');
-      }
-      if (via === 'form' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) return fail('Please check your email address.');
-      if (!f.adult.checked) return fail('Please confirm you’re 18 or older.');
+      if (!v.name) missing.push(T.need.name);
+      if (via === 'form' && !v.email) missing.push(T.need.email);
+      if (!v.story) missing.push(T.need.story);
+      if (missing.length) return fail(T.pleaseAdd(missing));
+      if (via === 'form' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) return fail(T.badEmail);
+      if (!f.adult.checked) return fail(T.adult);
       errEl.textContent = '';
 
       if (via === 'whatsapp') {
-        var lines = ['Hi Lady Jane, I’d like to begin a design journey.', '', 'Name: ' + v.name];
-        if (v.email) lines.push('Email: ' + v.email);
-        lines.push('Seeking: ' + v.seek, '', 'My story / idea:', v.story);
-        if (v.placement) lines.push('', 'Placement & size: ' + v.placement);
-        if (v.dates) lines.push('Preferred dates: ' + v.dates);
-        lines.push('', '(I confirm I’m 18+ and have read the studio policies.)');
+        var lines = [T.wa.hello, '', T.wa.name + v.name];
+        if (v.email) lines.push(T.wa.email + v.email);
+        lines.push(T.wa.seek + v.seek, '', T.wa.story, v.story);
+        if (v.placement) lines.push('', T.wa.place + v.placement);
+        if (v.dates) lines.push(T.wa.dates + v.dates);
+        lines.push('', T.wa.adult);
         window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
         return;
       }
@@ -263,23 +308,19 @@
       if (f.botcheck.checked) return showSuccess(v.name);
 
       sendBtn.disabled = true;
-      sendLabel.textContent = 'Sending…';
+      sendLabel.textContent = T.sending;
+      var M = T.mail;
+      var payload = { access_key: FORM_KEY, subject: M.subject + v.name, from_name: M.from, name: v.name, email: v.email };
+      payload[M.phone] = v.phone || '—';
+      payload[M.seek] = v.seek;
+      payload[M.story] = v.story;
+      payload[M.place] = v.placement || '—';
+      payload[M.dates] = v.dates || '—';
+      payload[M.adult] = M.yes;
       fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: FORM_KEY,
-          subject: 'Ink Journey Request — ' + v.name,
-          from_name: 'Lady Jane website',
-          name: v.name,
-          email: v.email,
-          'WhatsApp / phone': v.phone || '—',
-          'Seeking': v.seek,
-          'Story / idea': v.story,
-          'Placement & size': v.placement || '—',
-          'Preferred dates': v.dates || '—',
-          '18+ & read policies': 'Yes'
-        })
+        body: JSON.stringify(payload)
       })
         .then(function (r) { return r.json().catch(function () { return {}; }); })
         .then(function (data) {
@@ -288,13 +329,13 @@
           showSuccess(v.name);
         })
         .catch(function () {
-          errEl.innerHTML = 'Your request couldn’t be sent just now. Please try again, or reach me on ' +
-            '<a href="https://wa.me/' + WHATSAPP + '" target="_blank" rel="noopener">WhatsApp</a> or at ' +
-            '<a href="mailto:' + EMAIL + '">' + EMAIL + '</a>.';
+          errEl.innerHTML = T.failed(
+            '<a href="https://wa.me/' + WHATSAPP + '" target="_blank" rel="noopener">' + T.waWord + '</a>',
+            '<a href="mailto:' + EMAIL + '" dir="ltr">' + EMAIL + '</a>');
         })
         .then(function () {
           sendBtn.disabled = false;
-          sendLabel.textContent = 'Send your request';
+          sendLabel.textContent = T.send;
         });
     });
   }
@@ -304,15 +345,7 @@
   if (masonry && window.LJ_WORK) {
     var styles = window.LJ_STYLES;
     var labelOf = {};
-    var ALT = {
-      engraving: 'Engraving and sketch style tattoo',
-      symbolic: 'Symbolic fine line tattoo',
-      realism: 'Blackwork realism tattoo',
-      handpoke: 'Hand-poke tattoo',
-      illustration: 'Tattoo design illustration',
-      paintings: 'Symbolic painting'
-    };
-    styles.forEach(function (s) { labelOf[s.id] = s.label; });
+    styles.forEach(function (s) { labelOf[s.id] = T.styles[s.id] || s.label; });
     // Interleave styles (keeping each style's own order) so "All works" opens with variety
     var byCat = {};
     window.LJ_WORK.forEach(function (w) { (byCat[w.cat] = byCat[w.cat] || []).push(w); });
@@ -336,7 +369,7 @@
       var tw = 720, th = Math.round(720 * w.h / w.w);
       if (w.w > w.h) { th = 720; tw = Math.round(720 * w.w / w.h); }
       b.innerHTML = '<img src="' + IMG + 't/' + w.src + '.webp" width="' + tw + '" height="' + th + '" loading="lazy" decoding="async" alt="' +
-        (ALT[w.cat] || labelOf[w.cat]) + ' by Lady Jane, tattoo artist in Tel Aviv">' +
+        (T.alt[w.cat] || labelOf[w.cat]) + T.altSuffix + '">' +
         '<span class="tile-cap"><span class="caps-sm">' + labelOf[w.cat] + '</span><span class="plus">+</span></span>';
       tiles.push(b);
     });
@@ -369,7 +402,7 @@
 
     var bar = $('[data-filters]');
     var countEl = $('[data-count]');
-    var all = [{ id: 'all', label: 'All works' }].concat(styles);
+    var all = [{ id: 'all', label: T.allWorks }].concat(styles.map(function (st) { return { id: st.id, label: labelOf[st.id] }; }));
     all.forEach(function (s) {
       var n = s.id === 'all' ? window.LJ_WORK.length : window.LJ_WORK.filter(function (w) { return w.cat === s.id; }).length;
       var btn = document.createElement('button');
@@ -391,7 +424,7 @@
       });
       layout(true);
       $$('.filter', bar).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-filter') === id)); });
-      countEl.textContent = shown + (shown === 1 ? ' relic' : ' relics') + (id === 'all' ? '' : ' · ' + labelOf[id]);
+      countEl.textContent = shown + (shown === 1 ? T.relic : T.relics) + (id === 'all' ? '' : ' · ' + labelOf[id]);
       if (push && window.history && history.replaceState) {
         history.replaceState(null, '', id === 'all' ? location.pathname : '?style=' + id);
       }
