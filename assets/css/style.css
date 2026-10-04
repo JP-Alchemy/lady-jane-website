@@ -841,3 +841,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .form-success h3 em { color: var(--bone); }
 .form-success p { color: var(--muted-on-dark); max-width: 26em; margin-left: auto; margin-right: auto; }
 .form-success .btn { margin-top: 12px; }
+
+/* keyword kicker inside page headings */
+.display > .eyebrow, .h2 > .eyebrow { display: flex; line-height: 1.4; }
+.site-footer .footer-about { max-width: 40em; margin: -16px auto 40px; font-size: 14px; line-height: 1.7; color: rgba(240, 232, 220, .5); }

@@ -304,6 +304,14 @@
   if (masonry && window.LJ_WORK) {
     var styles = window.LJ_STYLES;
     var labelOf = {};
+    var ALT = {
+      engraving: 'Engraving and sketch style tattoo',
+      symbolic: 'Symbolic fine line tattoo',
+      realism: 'Blackwork realism tattoo',
+      handpoke: 'Hand-poke tattoo',
+      illustration: 'Tattoo design illustration',
+      paintings: 'Symbolic painting'
+    };
     styles.forEach(function (s) { labelOf[s.id] = s.label; });
     // Interleave styles (keeping each style's own order) so "All works" opens with variety
     var byCat = {};
@@ -328,7 +336,7 @@
       var tw = 720, th = Math.round(720 * w.h / w.w);
       if (w.w > w.h) { th = 720; tw = Math.round(720 * w.w / w.h); }
       b.innerHTML = '<img src="' + IMG + 't/' + w.src + '.webp" width="' + tw + '" height="' + th + '" loading="lazy" decoding="async" alt="' +
-        labelOf[w.cat] + ' by Lady Jane">' +
+        (ALT[w.cat] || labelOf[w.cat]) + ' by Lady Jane, tattoo artist in Tel Aviv">' +
         '<span class="tile-cap"><span class="caps-sm">' + labelOf[w.cat] + '</span><span class="plus">+</span></span>';
       tiles.push(b);
     });

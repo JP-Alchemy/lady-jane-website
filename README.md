@@ -46,6 +46,13 @@ Namecheap → Advanced DNS records:
 - **Send via WhatsApp** opens WhatsApp (`wa.me/972515002650`) with the visitor's details pre-written.
 - A hidden `botcheck` field catches simple spam bots. If sending fails, the visitor is shown the WhatsApp link and email address instead.
 
+## SEO
+
+- Every page has a unique title and description led by what people actually search for ("tattoo artist in Tel Aviv", "fine line", "tattoo portfolio", "tattoo aftercare"). Each H1 opens with a small keyword line above the poetic headline.
+- Structured data (JSON-LD) on the home page describes the studio (`TattooParlor`), Anneline (`Person`), her services and the FAQ, and includes the Hebrew name. Inner pages have breadcrumbs.
+- `sitemap.xml` lists all pages plus 131 images, so her work can appear in Google Images. `robots.txt` points to it.
+- Keep the name, address and phone **identical** everywhere (site, Google, Instagram, directories): *Lady Jane Tattoo & Art · Sheinkin St 4, Tel Aviv-Yafo · +972 51 500 2650*.
+
 ## Updating the portfolio
 
 - Large images: `assets/img/work/<style>-NN.webp` (1800px max). Thumbnails: `assets/img/work/t/<style>-NN.webp` (about 720px on the short side).
