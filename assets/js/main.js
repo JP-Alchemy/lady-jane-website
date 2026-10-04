@@ -4,6 +4,9 @@
 
   var WHATSAPP = '972515002650';
   var EMAIL = 'lj22designs@gmail.com';
+  // Web3Forms delivers form submissions by email. The access key is meant to be public.
+  var FORM_ENDPOINT = 'https://api.web3forms.com/submit';
+  var FORM_KEY = '726bf025-e5fc-45e9-9e9f-ac95c7bcbcac';
   var IMG = 'assets/img/work/';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, c) { return (c || document).querySelector(s); };
@@ -191,13 +194,15 @@
     placeOrbs();
   }
 
-  /* ---------- Inquiry form → WhatsApp / email ---------- */
+  /* ---------- Inquiry form → Web3Forms (email to Anneline) or WhatsApp ---------- */
   var form = $('#inquiry');
   if (form) {
     var errEl = $('[data-form-error]', form);
-    var via = 'whatsapp';
+    var sendBtn = $('[data-via="form"]', form);
+    var sendLabel = $('[data-btn-label]', form);
+    var lastVia = 'form';
     $$('[data-via]', form).forEach(function (b) {
-      b.addEventListener('click', function () { via = b.getAttribute('data-via'); });
+      b.addEventListener('click', function () { lastVia = b.getAttribute('data-via'); });
     });
     // "Commission a piece" etc. preselect what the visitor is seeking
     $$('[data-seek]').forEach(function (a) {
@@ -206,39 +211,91 @@
         $$('input[name="seek"]', form).forEach(function (r) { r.checked = r.value === v; });
       });
     });
+
+    var fail = function (msg) { errEl.textContent = msg; };
+    var showSuccess = function (name) {
+      $('.form-body', form).hidden = true;
+      var ok = $('[data-form-success]', form);
+      $('[data-success-name]', ok).textContent = name ? ', ' + name.split(' ')[0] : '';
+      ok.hidden = false;
+      ok.focus({ preventScroll: true });
+      form.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    };
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      var via = (e.submitter && e.submitter.getAttribute('data-via')) || lastVia;
       var f = form.elements;
+      var v = {
+        name: f.name.value.trim(),
+        email: f.email.value.trim(),
+        phone: f.phone.value.trim(),
+        story: f.story.value.trim(),
+        placement: f.placement.value.trim(),
+        dates: f.dates.value.trim(),
+        seek: (form.querySelector('input[name="seek"]:checked') || {}).value || 'A tattoo'
+      };
+
       var missing = [];
-      if (!f.name.value.trim()) missing.push('your name');
-      if (!f.contact.value.trim()) missing.push('a phone number or email');
-      if (!f.story.value.trim()) missing.push('a few words about your idea');
+      if (!v.name) missing.push('your name');
+      if (via === 'form' && !v.email) missing.push('your email');
+      if (!v.story) missing.push('a few words about your idea');
       if (missing.length) {
         var last = missing.pop();
-        errEl.textContent = 'Please add ' + (missing.length ? missing.join(', ') + ' and ' : '') + last + '.';
+        return fail('Please add ' + (missing.length ? missing.join(', ') + ' and ' : '') + last + '.');
+      }
+      if (via === 'form' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) return fail('Please check your email address.');
+      if (!f.adult.checked) return fail('Please confirm you’re 18 or older.');
+      errEl.textContent = '';
+
+      if (via === 'whatsapp') {
+        var lines = ['Hi Lady Jane, I’d like to begin a design journey.', '', 'Name: ' + v.name];
+        if (v.email) lines.push('Email: ' + v.email);
+        lines.push('Seeking: ' + v.seek, '', 'My story / idea:', v.story);
+        if (v.placement) lines.push('', 'Placement & size: ' + v.placement);
+        if (v.dates) lines.push('Preferred dates: ' + v.dates);
+        lines.push('', '(I confirm I’m 18+ and have read the studio policies.)');
+        window.open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
         return;
       }
-      if (!f.adult.checked) { errEl.textContent = 'Please confirm you’re 18 or older.'; return; }
-      errEl.textContent = '';
-      var seek = (form.querySelector('input[name="seek"]:checked') || {}).value || 'A tattoo';
-      var lines = [
-        'Hi Lady Jane, I’d like to begin a design journey.',
-        '',
-        'Name: ' + f.name.value.trim(),
-        'Contact: ' + f.contact.value.trim(),
-        'Seeking: ' + seek,
-        '',
-        'My story / idea:',
-        f.story.value.trim()
-      ];
-      if (f.placement.value.trim()) lines.push('', 'Placement & size: ' + f.placement.value.trim());
-      if (f.dates.value.trim()) lines.push('Preferred dates: ' + f.dates.value.trim());
-      lines.push('', '(I confirm I’m 18+ and have read the studio policies.)');
-      var text = lines.join('\n');
-      var url = via === 'email'
-        ? 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('Ink Journey Request — ' + f.name.value.trim()) + '&body=' + encodeURIComponent(text)
-        : 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text);
-      if (via === 'email') window.location.href = url; else window.open(url, '_blank', 'noopener');
+
+      // Spam trap: real people never see or tick this box
+      if (f.botcheck.checked) return showSuccess(v.name);
+
+      sendBtn.disabled = true;
+      sendLabel.textContent = 'Sending…';
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: FORM_KEY,
+          subject: 'Ink Journey Request — ' + v.name,
+          from_name: 'Lady Jane website',
+          name: v.name,
+          email: v.email,
+          'WhatsApp / phone': v.phone || '—',
+          'Seeking': v.seek,
+          'Story / idea': v.story,
+          'Placement & size': v.placement || '—',
+          'Preferred dates': v.dates || '—',
+          '18+ & read policies': 'Yes'
+        })
+      })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .then(function (data) {
+          if (!data.success) throw new Error(data.message || 'Submission failed');
+          form.reset();
+          showSuccess(v.name);
+        })
+        .catch(function () {
+          errEl.innerHTML = 'Your request couldn’t be sent just now. Please try again, or reach me on ' +
+            '<a href="https://wa.me/' + WHATSAPP + '" target="_blank" rel="noopener">WhatsApp</a> or at ' +
+            '<a href="mailto:' + EMAIL + '">' + EMAIL + '</a>.';
+        })
+        .then(function () {
+          sendBtn.disabled = false;
+          sendLabel.textContent = 'Send your request';
+        });
     });
   }
 

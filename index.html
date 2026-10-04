@@ -12,15 +12,16 @@
 <meta property="og:site_name" content="Lady Jane — Tattoo &amp; Art">
 <meta property="og:title" content="Lady Jane — Symbolic Tattoo & Fine Art · Tel Aviv">
 <meta property="og:description" content="Ink is the language of the soul. Symbolic tattoos in sketch illustration and vintage engraving style, hand-poke and commissioned fine art by Anneline Yaish — Lady Jane, Tel Aviv.">
-<meta property="og:image" content="https://jp-alchemy.github.io/lady-jane-website/assets/img/brand/og.jpg">
-<meta property="og:url" content="https://jp-alchemy.github.io/lady-jane-website/">
+<link rel="canonical" href="https://ladyjanetattoo.com/">
+<meta property="og:url" content="https://ladyjanetattoo.com/">
+<meta property="og:image" content="https://ladyjanetattoo.com/assets/img/brand/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=73605745">
+<link rel="stylesheet" href="assets/css/style.css?v=e0ac87b7">
 <script>document.documentElement.classList.add('js')</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TattooParlor","name":"Lady Jane Tattoo & Art","alternateName":"Lady Jane","founder":{"@type":"Person","name":"Anneline Yaish"},"description":"Symbolic fine-art tattoos, sketch illustration and vintage engraving style, hand-poke and commissioned artworks by Anneline Yaish in Tel Aviv.","image":"assets/img/brand/og.jpg","telephone":"+972515002650","email":"lj22designs@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Sheinkin St 4","addressLocality":"Tel Aviv-Yafo","addressCountry":"IL"},"sameAs":["https://www.instagram.com/ladyjane_tattoo_art/","https://www.tiktok.com/@ladyjane_tattoo_art","https://www.facebook.com/annelineyaish22/"],"foundingDate":"2024"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TattooParlor","name":"Lady Jane Tattoo & Art","alternateName":"Lady Jane","founder":{"@type":"Person","name":"Anneline Yaish"},"description":"Symbolic fine-art tattoos, sketch illustration and vintage engraving style, hand-poke and commissioned artworks by Anneline Yaish in Tel Aviv.","url":"https://ladyjanetattoo.com/","image":"https://ladyjanetattoo.com/assets/img/brand/og.jpg","telephone":"+972515002650","email":"lj22designs@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Sheinkin St 4","addressLocality":"Tel Aviv-Yafo","addressCountry":"IL"},"sameAs":["https://www.instagram.com/ladyjane_tattoo_art/","https://www.tiktok.com/@ladyjane_tattoo_art","https://www.facebook.com/annelineyaish22/"],"foundingDate":"2024"}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -463,48 +464,63 @@
         </div>
 
         <form class="form-card" id="inquiry" novalidate data-reveal data-delay="2">
-          <h3>Request your design journey</h3>
-          <p>Tell me a little about what is calling to you. You’ll send it straight to me on WhatsApp or by email.</p>
-          <div class="fields">
-            <div class="field">
-              <label for="f-name">Your name *</label>
-              <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="First &amp; last name">
-            </div>
-            <div class="field">
-              <label for="f-contact">Phone or email *</label>
-              <input id="f-contact" name="contact" type="text" autocomplete="email" required placeholder="So I can reply">
-            </div>
-            <fieldset class="field field--full">
-              <legend>I’m seeking</legend>
-              <div class="chips">
-                <label class="chip"><input type="radio" name="seek" value="A symbolic tattoo" checked><span>A tattoo</span></label>
-                <label class="chip"><input type="radio" name="seek" value="A hand-poke tattoo"><span>Hand-poke</span></label>
-                <label class="chip"><input type="radio" name="seek" value="Commissioned artwork"><span>Commissioned art</span></label>
-                <label class="chip"><input type="radio" name="seek" value="A 15-min online consultation"><span>Online consultation</span></label>
+          <div class="form-body">
+            <h3>Request your design journey</h3>
+            <p>Tell me a little about what is calling to you. Your request comes straight to me — or send it on WhatsApp if you prefer.</p>
+            <div class="fields">
+              <div class="field">
+                <label for="f-name">Your name *</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" required placeholder="First &amp; last name">
               </div>
-            </fieldset>
-            <div class="field field--full">
-              <label for="f-story">Your story or idea *</label>
-              <textarea id="f-story" name="story" required placeholder="A feeling, a memory, a symbol, a chapter you want to honour… it doesn’t need to be fully formed."></textarea>
+              <div class="field">
+                <label for="f-email">Email *</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="So I can reply">
+              </div>
+              <div class="field">
+                <label for="f-phone">WhatsApp / phone</label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="Optional">
+              </div>
+              <div class="field">
+                <label for="f-dates">Preferred dates</label>
+                <input id="f-dates" name="dates" type="text" placeholder="e.g. weekdays in March">
+              </div>
+              <fieldset class="field field--full">
+                <legend>I’m seeking</legend>
+                <div class="chips">
+                  <label class="chip"><input type="radio" name="seek" value="A symbolic tattoo" checked><span>A tattoo</span></label>
+                  <label class="chip"><input type="radio" name="seek" value="A hand-poke tattoo"><span>Hand-poke</span></label>
+                  <label class="chip"><input type="radio" name="seek" value="Commissioned artwork"><span>Commissioned art</span></label>
+                  <label class="chip"><input type="radio" name="seek" value="A 15-min online consultation"><span>Online consultation</span></label>
+                </div>
+              </fieldset>
+              <div class="field field--full">
+                <label for="f-story">Your story or idea *</label>
+                <textarea id="f-story" name="story" required placeholder="A feeling, a memory, a symbol, a chapter you want to honour… it doesn’t need to be fully formed."></textarea>
+              </div>
+              <div class="field field--full">
+                <label for="f-place">Placement &amp; size</label>
+                <input id="f-place" name="placement" type="text" placeholder="e.g. inner forearm, palm-sized">
+              </div>
+              <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <div class="field field--full">
+                <label class="check"><input type="checkbox" name="adult" required> I’m 18 or older and have read the <a href="policies.html" style="text-decoration:underline">studio policies</a>.</label>
+              </div>
             </div>
-            <div class="field">
-              <label for="f-place">Placement &amp; size</label>
-              <input id="f-place" name="placement" type="text" placeholder="e.g. inner forearm, palm-sized">
+            <div class="form-actions">
+              <button class="btn" type="submit" data-via="form"><span data-btn-label>Send your request</span></button>
+              <button class="btn btn--ghost" type="submit" data-via="whatsapp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Send via WhatsApp</button>
             </div>
-            <div class="field">
-              <label for="f-dates">Preferred dates</label>
-              <input id="f-dates" name="dates" type="text" placeholder="e.g. weekdays in March">
-            </div>
-            <div class="field field--full">
-              <label class="check"><input type="checkbox" name="adult" required> I’m 18 or older and have read the <a href="policies.html" style="text-decoration:underline">studio policies</a>.</label>
-            </div>
+            <p class="form-error" role="alert" data-form-error></p>
+            <p class="form-note">Reference images welcome — share them on WhatsApp, or reply to my email once I write back.</p>
           </div>
-          <div class="form-actions">
-            <button class="btn" type="submit" data-via="whatsapp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Send via WhatsApp</button>
-            <button class="btn btn--ghost" type="submit" data-via="email"><svg aria-hidden="true"><use href="#i-mail"/></svg>Send by email</button>
+          <div class="form-success" data-form-success hidden tabindex="-1">
+            <svg class="mini-compass" viewBox="-50 -50 100 100" aria-hidden="true"><circle r="44" fill="none" stroke="currentColor" stroke-width="2"/><circle r="36" fill="none" stroke="currentColor" stroke-width="1" opacity=".6"/><path d="M0 0L0.0 -6.0L18.38 -18.38Z" fill="currentColor"/><path d="M0 0L18.38 -18.38L6.0 0.0Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M0 0L6.0 0.0L18.38 18.38Z" fill="currentColor"/><path d="M0 0L18.38 18.38L0.0 6.0Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M0 0L0.0 6.0L-18.38 18.38Z" fill="currentColor"/><path d="M0 0L-18.38 18.38L-6.0 0.0Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M0 0L-6.0 0.0L-18.38 -18.38Z" fill="currentColor"/><path d="M0 0L-18.38 -18.38L-0.0 -6.0Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M0 0L-5.66 -5.66L0.0 -48.0Z" fill="currentColor"/><path d="M0 0L0.0 -48.0L5.66 -5.66Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M0 0L5.66 -5.66L48.0 0.0Z" fill="currentColor"/><path d="M0 0L48.0 0.0L5.66 5.66Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M0 0L5.66 5.66L0.0 48.0Z" fill="currentColor"/><path d="M0 0L0.0 48.0L-5.66 5.66Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M0 0L-5.66 5.66L-48.0 0.0Z" fill="currentColor"/><path d="M0 0L-48.0 0.0L-5.66 -5.66Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle r="5" fill="currentColor"/></svg>
+            <p class="eyebrow eyebrow--center" style="display:flex">Received</p>
+            <h3>Your scroll has been <em>received.</em></h3>
+            <p>Thank you<span data-success-name></span>. I read every message personally and reply in order of arrival.</p>
+            <p>Have reference images, or prefer to talk now?</p>
+            <a class="btn btn--ghost" href="https://wa.me/972515002650" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>Message me on WhatsApp</a>
           </div>
-          <p class="form-error" role="alert" data-form-error></p>
-          <p class="form-note">Reference images welcome — attach them in the chat or email once it opens.</p>
         </form>
       </div>
     </div>
@@ -578,6 +594,6 @@
   </div>
 </footer>
 <a class="float-cta" href="https://wa.me/972515002650?text=Hi%20Lady%20Jane%2C%20I%27d%20love%20to%20begin%20a%20design%20journey." target="_blank" rel="noopener" aria-label="Message Lady Jane on WhatsApp"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></a>
-<script src="assets/js/main.js?v=75d51c10" defer></script>
+<script src="assets/js/main.js?v=fba38798" defer></script>
 </body>
 </html>
