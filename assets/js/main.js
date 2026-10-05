@@ -141,7 +141,7 @@
       '<button class="lb-close" type="button">' + T.close + ' <span aria-hidden="true" style="font-size:22px;line-height:1">×</span></button></div>' +
       '<div class="lb-stage"><img alt=""><button class="round-btn lb-nav lb-prev" type="button" aria-label="' + T.prev + '">' + (RTL ? '→' : '←') + '</button>' +
       '<button class="round-btn lb-nav lb-next" type="button" aria-label="' + T.next + '">' + (RTL ? '←' : '→') + '</button></div>' +
-      '<div class="lb-bottom"><span class="lb-cap"></span><a class="link-arrow" href="index.html#begin">' + T.begin + '</a></div>';
+      '<div class="lb-bottom"><span class="lb-cap"></span><a class="link-arrow" href="./#begin">' + T.begin + '</a></div>';
     document.body.appendChild(lb);
     lbImg = $('img', lb); lbCap = $('.lb-cap', lb); lbCount = $('.lb-counter', lb);
     $('.lb-close', lb).addEventListener('click', closeLb);

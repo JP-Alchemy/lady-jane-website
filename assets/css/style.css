@@ -109,7 +109,7 @@ body::after {
   color: var(--bone); margin: 0 0 28px;
 }
 .eyebrow::before { content: ""; width: 36px; height: 1px; background: currentColor; opacity: .7; }
-.eyebrow--center { justify-content: center; }
+.eyebrow--center { display: flex; justify-content: center; }
 .eyebrow--center::after { content: ""; width: 36px; height: 1px; background: currentColor; opacity: .7; }
 .section--vellum .eyebrow { color: var(--moss); }
 
@@ -903,6 +903,19 @@ html[lang="he"] .path-list li span, html[lang="he"] .beliefs li span, html[lang=
 .form-success h3 em { color: var(--bone); }
 .form-success p { color: var(--muted-on-dark); max-width: 26em; margin-left: auto; margin-right: auto; }
 .form-success .btn { margin-top: 12px; }
+
+.mini-compass { flex: none; max-width: none; }
+/* moved out of inline style attributes */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.h2 + .lede { margin-top: 28px; }
+.style-grid .serif-lg { margin-top: 28px; color: var(--vellum); }
+.plate { margin: 0; }
+.prose .glyph { display: inline-block; vertical-align: -3px; }
+.check a { text-decoration: underline; }
+.rite-bg img { object-position: 50% 40%; }
+.styles-row-head .eyebrow { margin: 0; }
+.page-hero--full { min-height: 100vh; min-height: 100svh; display: flex; align-items: center; }
+.actions--row { display: flex; flex-wrap: wrap; gap: 20px 32px; align-items: center; margin-top: 40px; }
 
 /* keyword kicker inside page headings */
 .display > .eyebrow, .h2 > .eyebrow { display: flex; line-height: 1.4; }

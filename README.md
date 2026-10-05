@@ -62,6 +62,8 @@ Namecheap → Advanced DNS records:
 - Every page has a unique title and description led by what people actually search for ("tattoo artist in Tel Aviv", "fine line", "tattoo portfolio", "tattoo aftercare"). Each H1 opens with a small keyword line above the poetic headline.
 - Structured data (JSON-LD) on the home page describes the studio (`TattooParlor`), Anneline (`Person`), her services and the FAQ, and includes the Hebrew name. Inner pages have breadcrumbs.
 - `sitemap.xml` lists all pages plus 131 images, so her work can appear in Google Images. `robots.txt` points to it.
+- House rules that keep SEO checkers (Seobility, Lighthouse) happy: every `<img>` gets a meaningful `alt`; icon-only links carry a hidden `<span class="sr-only">` label; no inline `style=""` attributes (add a class in `style.css` instead); link to the home page as `./`, never `index.html`.
+- Not fixable on GitHub Pages: the `Strict-Transport-Security` (HSTS) header and longer browser caching (Pages fixes `max-age=600`). Both are possible by putting Cloudflare in front of the domain.
 - Keep the name, address and phone **identical** everywhere (site, Google, Instagram, directories): *Lady Jane Tattoo & Art · Sheinkin St 4, Tel Aviv-Yafo · +972 51 500 2650*.
 
 ## Updating the portfolio
