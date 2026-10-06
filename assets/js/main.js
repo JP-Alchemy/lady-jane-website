@@ -377,6 +377,8 @@
         IMG + 't/' + w.src + '.webp ' + tw + 'w" sizes="(max-width: 700px) 46vw, (max-width: 1080px) 31vw, 300px" width="' + tw + '" height="' + th + '" loading="lazy" decoding="async" alt="' +
         (T.alt[w.cat] || labelOf[w.cat]) + T.altSuffix + '">' +
         '<span class="tile-cap"><span class="caps-sm">' + labelOf[w.cat] + '</span><span class="plus">+</span></span>';
+      // Reserve each tile's height before its image arrives (no layout shift)
+      $('img', b).style.aspectRatio = tw + ' / ' + th;
       tiles.push(b);
     });
 

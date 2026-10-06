@@ -707,7 +707,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .masonry { display: flex; gap: 16px; align-items: flex-start; }
 .masonry-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
 .masonry .tile { margin: 0; }
-.masonry .tile img { aspect-ratio: auto; transform: none; }
+.masonry .tile img { height: auto; transform: none; }
 .masonry .tile:hover img { transform: scale(1.03); }
 .masonry .tile.is-hidden { display: none; }
 /* The archive is assembled by JS after first paint: reserve its space so nothing jumps (CLS) */
