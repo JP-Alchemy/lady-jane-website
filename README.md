@@ -66,9 +66,15 @@ Namecheap → Advanced DNS records:
 - Not fixable on GitHub Pages: the `Strict-Transport-Security` (HSTS) header and longer browser caching (Pages fixes `max-age=600`). Both are possible by putting Cloudflare in front of the domain.
 - Keep the name, address and phone **identical** everywhere (site, Google, Instagram, directories): *Lady Jane Tattoo & Art · Sheinkin St 4, Tel Aviv-Yafo · +972 51 500 2650*.
 
+## Performance
+
+- Fonts are self-hosted and the two above-the-fold faces are preloaded; nothing loads from third-party servers.
+- Images carry `srcset`/`sizes`, so phones download the 480px versions. Hero slides 2–5 stay unloaded (`display: none`) until the page has finished loading.
+- The big compass appears once as live SVG (the animated hero one). The decorative copies are a cached background image (`assets/img/brand/compass-line.svg`) to keep the page light.
+
 ## Updating the portfolio
 
-- Large images: `assets/img/work/<style>-NN.webp` (1800px max). Thumbnails: `assets/img/work/t/<style>-NN.webp` (about 720px on the short side).
+- Large images: `assets/img/work/<style>-NN.webp` (1800px max). Thumbnails in two sizes: `assets/img/work/t/<style>-NN.webp` (720px on the short side) and `assets/img/work/s/<style>-NN.webp` (480px, served to phones via `srcset`).
 - The archive is driven by `assets/js/work-data.js`. Add one line per piece; the order within a style is the order shown.
 - Styles: `engraving`, `symbolic`, `realism`, `handpoke`, `illustration`, `paintings`.
 - The home page picks specific pieces by filename: the hero arch slideshow, the six featured tiles, the style cards and the commissions carousel.
@@ -81,7 +87,7 @@ CSS and JS links carry a `?v=` hash so returning visitors get fresh files. Bump 
 ## Design notes
 
 - Palette (from Anneline's brief, as CSS variables in `style.css`): Inkstone Black `#1c1b1a`, Moss Ash Green `#5f6652`, Vellum Parchment `#f0e8dc`, Witchwood Brown `#473d33`, Bloodstone Red `#722f37`, Bone Dust Beige `#a08e7c`, Void Black `#080806`.
-- Type: Cormorant Garamond (display), Cinzel (small caps, echoing the logo wordmark), Jost (body), Pinyon Script (signature only). All from Google Fonts.
+- Type: Cormorant Garamond (display), Cinzel (small caps, echoing the logo wordmark), Jost (body), Pinyon Script (signature only); Frank Ruhl Libre and Heebo for Hebrew. All self-hosted in `assets/fonts/` (Latin + Hebrew subsets) with `@font-face` rules at the top of `style.css`, so text never waits on Google’s servers.
 - The compass / sacred-geometry emblem and the wax seal are inline SVG. The compass draws itself on load and turns slowly.
 - Work photos are shown in warm monochrome and switch to full colour on hover and in the viewer. This keeps mixed phone photos looking consistent.
 - Motion respects `prefers-reduced-motion`.
