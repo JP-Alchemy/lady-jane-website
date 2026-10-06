@@ -290,13 +290,13 @@ body::after {
 .plates .compass--static { opacity: .32; }
 
 /* line-drawing intro */
-.compass.is-drawing .c-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.8s var(--ease) forwards; }
-.compass.is-drawing .c-seed .c-draw { animation-delay: .6s; animation-duration: 3.4s; }
-.compass.is-drawing .c-faint { animation-delay: 1s; }
+.compass.is-drawing .c-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.6s var(--ease) forwards; }
+.compass.is-drawing .c-seed .c-draw { animation-delay: .3s; animation-duration: 1.6s; }
+.compass.is-drawing .c-faint { animation-delay: .4s; }
 .compass.is-drawing .c-star, .compass.is-drawing .c-hub, .compass.is-drawing .c-pupil,
 .compass.is-drawing .c-glint, .compass.is-drawing .c-dots, .compass.is-drawing .c-letter,
-.compass.is-drawing .compass-orn .c-fill { opacity: 0; animation: fade 1.6s var(--ease) 1.4s forwards; }
-.compass.is-drawing .c-dots { animation-delay: .4s; }
+.compass.is-drawing .compass-orn .c-fill { opacity: 0; animation: fade .9s var(--ease) .7s forwards; }
+.compass.is-drawing .c-dots { animation-delay: .2s; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes fade { to { opacity: 1; } }
 .compass.is-drawing .c-dots { animation-name: fadeDots; }

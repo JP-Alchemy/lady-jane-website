@@ -74,7 +74,7 @@ Namecheap → Advanced DNS records:
 
 ## Updating the portfolio
 
-- Large images: `assets/img/work/<style>-NN.webp` (1800px max). Thumbnails in two sizes: `assets/img/work/t/<style>-NN.webp` (720px on the short side) and `assets/img/work/s/<style>-NN.webp` (480px, served to phones via `srcset`).
+- Large images: `assets/img/work/<style>-NN.webp` (1800px max). Thumbnails in two sizes: `assets/img/work/t/<style>-NN.webp` (720px on the short side) and `assets/img/work/s/<style>-NN.webp` (480px, served to phones via `srcset`). The five hero-slideshow images also have a 320px version in `assets/img/work/x/`.
 - The archive is driven by `assets/js/work-data.js`. Add one line per piece; the order within a style is the order shown.
 - Styles: `engraving`, `symbolic`, `realism`, `handpoke`, `illustration`, `paintings`.
 - The home page picks specific pieces by filename: the hero arch slideshow, the six featured tiles, the style cards and the commissions carousel.
