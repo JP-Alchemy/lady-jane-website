@@ -710,6 +710,10 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .masonry .tile img { aspect-ratio: auto; transform: none; }
 .masonry .tile:hover img { transform: scale(1.03); }
 .masonry .tile.is-hidden { display: none; }
+/* The archive is assembled by JS after first paint: reserve its space so nothing jumps (CLS) */
+.js .filters { min-height: 70px; }
+.js .archive-count { min-height: 1.8em; }
+.js .masonry:empty { min-height: 150vh; }
 .archive-count { font-family: var(--f-caps); font-size: 11px; letter-spacing: .3em; color: var(--bone); margin-bottom: 26px; }
 .archive-cta { text-align: center; padding: clamp(64px, 8vw, 110px) 0 0; }
 .archive-cta .h2 { margin-bottom: 30px; }
